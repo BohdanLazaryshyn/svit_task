@@ -1,0 +1,18 @@
+{% extends "_base.html" %}
+{% block content %}
+
+<h1 class="text-center">Welcome!</h1>
+    {% if current_user.is_authenticated %}
+        <h1>Upload Files</h1>
+        <form method="POST" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="file" class="form-label">Choose a file to upload:</label>
+            <input type="file" name="file" class="form-control" id="file">
+          </div>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    {% else %}
+        <h2 class="text-center">You are not logged in!</h2>
+    {% endif %}
+
+{% endblock %}
