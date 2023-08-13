@@ -1,0 +1,31 @@
+version: "3.5"
+services:
+  web:
+    image: python:3.11-alpine
+    container_name: flask_app
+    build:
+      context: .
+    command: >
+      sh -c "flask db upgrade &&
+      flask run -h 0.0.0.0 -p 5005"
+    volumes:
+      - .:/app
+    ports:
+      - "5005:5005"
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  db:
+    image: postgres:15-alpine
+    container_name: postgres_db
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

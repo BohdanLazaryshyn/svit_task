@@ -19,8 +19,12 @@
           <input type="text" class="form-control" id="keyword" name="keyword">
         </div>
         <div class="form-group">
-            <button type="submit" name="order" value="newest" class="btn btn-primary">Спочатку новіші</button>
-            <button type="submit" name="order" value="oldest" class="btn btn-primary">Спочатку старіші</button>
+        <label for="order">Sort Order:</label>
+            <select name="order" id="order">
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Search</button>
         </div>
       </form>
       <hr>

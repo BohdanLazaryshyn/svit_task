@@ -108,6 +108,7 @@ def index():
 
 
 @app.route("/search", methods=["GET", "POST"])
+@login_required
 def search_logs():
     """
     This view handles the search of logs.
@@ -142,6 +143,7 @@ def search_logs():
 
 
 @app.route("/log/<int:log_id>", methods=["GET"])
+@login_required
 def log_detail(log_id):
     """
     This view handles the detail of a log.
@@ -163,6 +165,12 @@ def logout():
     logout_user()
     flash("You have been logged out.", "info")
     return redirect(url_for("index"))
+
+
+@app.errorhandler(401)
+def unauthorized_error(error):
+    flash("Unauthorized access. Please log in.", "danger")
+    return redirect(url_for("login"))
 
 
 if __name__ == '__main__':
