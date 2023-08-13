@@ -150,13 +150,17 @@ def log_detail(log_id):
     :param log_id: The id of the log.
     """
     log = Log.query.get(log_id)
-
-    log_data = {
-        "id": log.id,
-        "date": log.date.strftime("%Y-%m-%d %H:%M:%S"),
-        "content": log.content
-    }
-    return render_template("core/detail.html", log=log_data)
+    print(log)
+    if log:
+        log_data = {
+            "id": log.id,
+            "date": log.date.strftime("%Y-%m-%d %H:%M:%S"),
+            "content": log.content
+        }
+        return render_template("core/detail.html", log=log_data)
+    else:
+        flash("Log not found.", "warning")
+        return redirect(url_for("search_logs"))
 
 
 @app.route("/logout")
