@@ -22,7 +22,7 @@ def login():
         flash("You are already logged in.")
         return redirect(url_for("index"))
 
-    form = LoginForm()
+    form = LoginForm(request.form)
 
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -45,7 +45,7 @@ def register():
         flash("You are already registered.", "info")
         return redirect(url_for("index"))
 
-    form = RegisterForm()
+    form = RegisterForm(request.form)
 
     if form.validate_on_submit():
         user = User(
