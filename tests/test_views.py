@@ -1,3 +1,4 @@
+import datetime
 from urllib.parse import urljoin
 
 import pytest
@@ -106,6 +107,44 @@ def test_search_logs_not_authorized(client):
     response = client.get("/search")
     assert response.status_code == 302
     assert response.location == "/login"
+
+
+def test_search_logs_authorized(client, authenticated_user):
+    log1 = Log(
+        content="Log 1",
+        file_path="log1.log",
+        date=datetime.datetime(2023, 8, 1, 10, 0)
+    )
+    log2 = Log(
+        content="Log 2",
+        file_path="log2.log",
+        date=datetime.datetime(2023, 8, 2, 12, 0)
+    )
+    log3 = Log(
+        content="Log 3",
+        file_path="log3.log",
+        date=datetime.datetime(2023, 8, 3, 14, 0)
+    )
+
+    db.session.add_all([log1, log2, log3])
+    db.session.commit()
+
+    response = client.post(
+        "/search",
+        data={
+            "start_date": "2023-08-02T00:00",
+            "end_date": "2023-08-03T23:59",
+            "keyword": "Log 2",
+            "order": "newest"
+        },
+        follow_redirects=True
+    )
+
+    assert response.status_code == 200
+
+    assert b"Log 2" in response.data
+    assert b"Log 1" not in response.data
+    assert b"Log 3" not in response.data
 
 
 def test_log_detail(client, authenticated_user):

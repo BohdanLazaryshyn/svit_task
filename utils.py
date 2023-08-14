@@ -70,8 +70,6 @@ def time_validations(start_date: str = None, end_date: str = None):
     if end_date:
         end_date_str = end_date.replace("T", " ")
         end_date = datetime.strptime(end_date_str, "%Y-%m-%d %H:%M")
-        if end_date > datetime.now():
-            return None, None, "End date must be before now."
     return start_date, end_date, None
 
 
