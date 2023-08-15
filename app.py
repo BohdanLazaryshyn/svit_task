@@ -80,7 +80,7 @@ def index():
 
             filename = secure_filename(file.filename)
             filename, file_path = prepare_file(filename)
-            file.save(file_path)                          # Save the file in the PC
+            file.save(file_path)
 
             if filename.endswith((".txt", ".csv")):
                 read_and_save_log_in_db(file_path)

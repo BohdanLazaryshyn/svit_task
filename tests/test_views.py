@@ -1,8 +1,6 @@
 import datetime
-from urllib.parse import urljoin
 
 import pytest
-from flask import url_for
 from flask_login import current_user, login_user
 
 from app import app
