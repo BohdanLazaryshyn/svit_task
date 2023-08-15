@@ -14,6 +14,9 @@ $ python -m venv venv
 $ venv\Scripts\activate (on Windows)
 $ source venv/bin/activate (on macOS)
 $ pip install -r requirements.txt
+$ flask db init
+$ flask db migrate -m "init"
+$ flask db upgrade
 $ flask run
 ```
 
