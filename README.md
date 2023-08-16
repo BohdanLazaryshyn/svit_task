@@ -28,3 +28,7 @@ $ flask run
 ### Docker(for create image and run container)
 docker build -t <your_name> . 
 docker run -p 5000:5000 <your_name>
+
+### Run with docker-compose
+* create .env file with variables from .env.example
+* docker-compose up -d --build
